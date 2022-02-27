@@ -1,30 +1,30 @@
-import React, { FC } from "react";
+import React from "react";
 import {
   Box,
+  Text,
   Flex,
-  Avatar,
-  HStack,
-  Link,
-  IconButton,
   Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  useDisclosure,
+  HStack,
+  Stack,
   useColorModeValue,
   useColorMode,
-  Stack,
+  useDisclosure,
 } from "@chakra-ui/react";
 
-import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
-import NavLink from "./NavLink";
+import Logo from "./Logo";
+import MenuToggler from "./MenuToggler";
+import DesktopNav from "./DesktopNav";
+import MobileNav from "./MobileNav";
 
-const Links = ["Dashboard", "Projects", "Team"];
+const Links = [
+  { path: "/", content: "Home" },
+  { path: "/search", content: "Search" },
+  { path: "/properties", content: "Properties" },
+];
 
-const NavBar: FC = props => {
+const NavBar: React.FC = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -32,24 +32,11 @@ const NavBar: FC = props => {
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <IconButton
-            size={"md"}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={"Open Menu"}
-            display={{ md: "none" }}
-            onClick={isOpen ? onClose : onOpen}
-          />
+          <MenuToggler isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
           <HStack spacing={8} alignItems={"center"}>
-            <Box>Logo</Box>
-            <HStack
-              as={"nav"}
-              spacing={4}
-              display={{ base: "none", md: "flex" }}
-            >
-              {Links.map(link => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </HStack>
+            <Logo title='Aqar' />
+
+            <DesktopNav items={Links} />
           </HStack>
           <Flex alignItems={"center"}>
             <Stack
@@ -59,24 +46,30 @@ const NavBar: FC = props => {
               spacing={6}
             >
               <Button
+                display={{ base: "none", sm: "flex" }}
+                onClick={toggleColorMode}
+              >
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+              <Button
                 as={"a"}
                 fontSize={"sm"}
                 fontWeight={400}
                 variant={"link"}
-                href={"#"}
+                href={"/signin"}
               >
                 Sign In
               </Button>
               <Button
                 as={"a"}
-                display={{ base: "none", md: "inline-flex" }}
+                display={{ base: "none", md: "flex" }}
                 fontSize={"sm"}
                 fontWeight={600}
                 color={"white"}
-                bg={"pink.400"}
-                href={"#"}
+                bg={"teal.400"}
+                href={"/signup"}
                 _hover={{
-                  bg: "pink.300",
+                  bg: "teal.300",
                 }}
               >
                 Sign Up
@@ -86,12 +79,12 @@ const NavBar: FC = props => {
         </Flex>
 
         {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
-              {Links.map(link => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </Stack>
+          <Box display={{ md: "none" }}>
+            <MobileNav
+              items={Links}
+              colorMode={colorMode}
+              toggleColorMode={toggleColorMode}
+            />
           </Box>
         ) : null}
       </Box>
