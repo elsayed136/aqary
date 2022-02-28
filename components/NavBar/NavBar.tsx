@@ -17,6 +17,7 @@ import Logo from "./Logo";
 import MenuToggler from "./MenuToggler";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import { useRouter } from "next/router";
 
 const Links = [
   { path: "/", content: "Home" },
@@ -27,6 +28,8 @@ const Links = [
 const NavBar: React.FC = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const router = useRouter();
 
   return (
     <>
@@ -52,22 +55,20 @@ const NavBar: React.FC = () => {
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
               <Button
-                as={"a"}
                 fontSize={"sm"}
                 fontWeight={400}
                 variant={"link"}
-                href={"/signin"}
+                onClick={() => router.replace("/signin")}
               >
                 Sign In
               </Button>
               <Button
-                as={"a"}
                 display={{ base: "none", md: "flex" }}
                 fontSize={"sm"}
                 fontWeight={600}
                 color={"white"}
                 bg={"teal.400"}
-                href={"/signup"}
+                onClick={() => router.replace("/signup")}
                 _hover={{
                   bg: "teal.300",
                 }}
