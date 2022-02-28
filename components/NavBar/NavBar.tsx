@@ -46,7 +46,7 @@ const NavBar: React.FC = () => {
               spacing={6}
             >
               <Button
-                display={{ base: "none", sm: "flex" }}
+                display={{ base: "none", md: "flex" }}
                 onClick={toggleColorMode}
               >
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}

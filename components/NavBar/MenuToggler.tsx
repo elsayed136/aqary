@@ -11,7 +11,7 @@ const MenuToggler: React.FC<{
       size={"md"}
       icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
       aria-label={"Open Menu"}
-      display={{ sm: "none" }}
+      display={{ base: "flex", md: "none" }}
       onClick={isOpen ? onClose : onOpen}
     />
   );
