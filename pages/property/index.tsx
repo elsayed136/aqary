@@ -1,12 +1,19 @@
 import React from "react";
-import { Flex, Box, Text, Button } from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
+
+import { baseUrl, fetchApi } from "../../utils/fetchApi";
 
 import Banner from "../../components/Banner";
 import Property from "../../components/Property";
 
 import heroImg from "../../public/assets/images/hero.jpg";
+import { GetStaticProps, NextPage } from "next";
 
-const Properties = () => {
+const Properties: NextPage<{
+  propertiesForSale: any[];
+  propertiesForRent: any[];
+}> = ({ propertiesForSale, propertiesForRent }) => {
+  console.log(propertiesForSale);
   return (
     <Box>
       <Banner
@@ -48,4 +55,24 @@ const Properties = () => {
     </Box>
   );
 };
+
+export const getStaticProps: GetStaticProps<{
+  propertiesForSale: any;
+  propertiesForRent: any;
+}> = async () => {
+  const propertyForSale: any = await fetchApi(
+    `${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`
+  );
+  const propertyForRent: any = await fetchApi(
+    `${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`
+  );
+
+  return {
+    props: {
+      propertiesForSale: propertyForSale?.hits,
+      propertiesForRent: propertyForRent?.hits,
+    },
+  };
+};
+
 export default Properties;
