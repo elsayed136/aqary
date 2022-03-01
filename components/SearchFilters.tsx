@@ -1,8 +1,13 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, useColorModeValue } from "@chakra-ui/react";
 
 export default function SearchFilters() {
   return (
-    <Flex bg='gray.100' p='4' justifyContent='center' flexWrap='wrap'>
+    <Flex
+      bg={useColorModeValue("gray.100", "gray.900")}
+      p='4'
+      justifyContent='center'
+      flexWrap='wrap'
+    >
       search filters
     </Flex>
   );
