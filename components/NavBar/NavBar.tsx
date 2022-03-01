@@ -22,7 +22,7 @@ import { useRouter } from "next/router";
 const Links = [
   { path: "/", content: "Home" },
   { path: "/search", content: "Search" },
-  { path: "/properties", content: "Properties" },
+  { path: "/property", content: "Properties" },
 ];
 
 const NavBar: React.FC = () => {
