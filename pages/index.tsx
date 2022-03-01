@@ -11,7 +11,7 @@ const Home = () => {
     <Flex
       w={"full"}
       h={"100vh"}
-      backgroundImage='/assets/hero.jpg'
+      backgroundImage='./assets/images/hero.jpg'
       backgroundSize={"cover"}
       backgroundPosition={"center center"}
     >

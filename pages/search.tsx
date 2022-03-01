@@ -5,12 +5,12 @@ import { Flex, Box, Text, Icon } from "@chakra-ui/react";
 import { BsFilter } from "react-icons/bs";
 
 import SearchFilters from "../components/SearchFilters";
-import noresult from "../assets/images/noresult.svg";
+import noresult from "../public/assets/images/noresult.svg";
 
 const Search = () => {
   const [searchFilters, setSearchFilters] = useState(false);
   const router = useRouter();
-  const properties = ["s"];
+  const properties = [];
   return (
     <Box>
       <Flex
